@@ -2,17 +2,29 @@ package laucher;
 
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileWriter;
+
+//import fxml.controller.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class WebCamAppLauncher extends Application {
 
+	private Stage myPrimaryStage;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		
+		myPrimaryStage = primaryStage;
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/fxml/gui/WebCamPreview.fxml"));
@@ -32,4 +44,32 @@ public class WebCamAppLauncher extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	
+	//New method 
+	public void saveOnDisk(BufferedImage image){
+		FileChooser fileChooser = new FileChooser();
+		  
+	    //Set extension filter
+	    FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", ".png");
+	    fileChooser.getExtensionFilters().add(extFilter);
+	    
+	    //Show save file dialog
+	    File file = fileChooser.showSaveDialog(myPrimaryStage);
+	    
+	    if(file != null){
+	        saveImage(image, file);
+	    }
+	}
+	    
+	    private void saveImage(BufferedImage image, File file){
+	        try {
+	            ImageIO.write(image, "png", file);
+	            
+	        } catch (IOException ex) {
+	        	ex.printStackTrace();
+	        }
+	         
+	    }   
+	
 }

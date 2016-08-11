@@ -41,12 +41,20 @@
             <Insets top="10.0" />
           </GridPane.margin>
         </Label>
-        <Label font="$x1" text="Please Select WebCam" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+        <Label font="$x1" text="Please Select WebCam" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
           <GridPane.margin>
             <Insets left="5.0" right="10.0" />
           </GridPane.margin>
         </Label>
             <ComboBox fx:id="cbCameraOptions" prefHeight="38.0" prefWidth="357.0" style="-fx-font-size: 18px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="btnCapture" mnemonicParsing="false" onAction="#captureImage" prefHeight="21.0" prefWidth="151.0" text="Capture" textFill="#f22626" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
         
       </children>
       <columnConstraints>

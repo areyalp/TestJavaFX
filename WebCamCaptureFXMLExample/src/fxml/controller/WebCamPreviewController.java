@@ -1,5 +1,6 @@
 package fxml.controller;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +23,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.FileChooser;
+import laucher.WebCamAppLauncher;
 
 import com.github.sarxos.webcam.Webcam;
 
@@ -31,6 +34,7 @@ public class WebCamPreviewController implements Initializable {
 	@FXML Button btnStartCamera;
 	@FXML Button btnStopCamera;
 	@FXML Button btnDisposeCamera;
+	@FXML Button btnCapture;
 	@FXML ComboBox<WebCamInfo> cbCameraOptions;
 	@FXML BorderPane bpWebCamPaneHolder;
 	@FXML FlowPane fpBottomPane;
@@ -42,6 +46,8 @@ public class WebCamPreviewController implements Initializable {
 	private ObjectProperty<Image> imageProperty = new SimpleObjectProperty<Image>();
 	
 	private String cameraListPromptText = "Choose Camera";
+	
+	private WebCamAppLauncher myWebCAL = new WebCamAppLauncher(); 
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -138,9 +144,9 @@ public class WebCamPreviewController implements Initializable {
 							Platform.runLater(new Runnable() {
 								@Override
 								public void run() {
-									final Image mainiamge = SwingFXUtils
+									final Image mainimage = SwingFXUtils
 											.toFXImage(grabbedImage, null);
-									imageProperty.set(mainiamge);
+									imageProperty.set(mainimage);
 								}
 							});
 
@@ -198,6 +204,26 @@ public class WebCamPreviewController implements Initializable {
 		btnStopCamera.setDisable(true);
 		btnStartCamera.setDisable(true);
 	}
+	
+	//New method to save a captured image
+	public void captureImage(ActionEvent event)
+	{
+
+		myWebCAL.saveOnDisk( resize(grabbedImage,352,288));
+			
+	}
+	
+	
+	private static BufferedImage resize(BufferedImage img, int newW, int newH) { 
+		BufferedImage newImage = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
+
+		Graphics g = newImage.createGraphics();
+		g.drawImage(img, 0, 0, newW, newH, null);
+		g.dispose();
+		
+		return newImage;
+	}  
+	
 	
 	class WebCamInfo
 	{
