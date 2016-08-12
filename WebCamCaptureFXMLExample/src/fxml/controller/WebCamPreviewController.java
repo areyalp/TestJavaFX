@@ -2,8 +2,12 @@ package fxml.controller;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -209,8 +213,13 @@ public class WebCamPreviewController implements Initializable {
 	public void captureImage(ActionEvent event)
 	{
 
-		myWebCAL.saveOnDisk( resize(grabbedImage,352,288));
-			
+		//myWebCAL.saveOnDisk( resize(grabbedImage,352,288));
+		File outputfile = new File("image.jpg");
+		try {
+			ImageIO.write(grabbedImage, "jpg", outputfile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
